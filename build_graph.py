@@ -135,7 +135,7 @@ for i in range(total_barangays):
             adjacency_list[id1].append((id2, distance))
             adjacency_list[id2].append((id1, distance))
             #print("\t", barangays_metadata[id2]["name"], (id2, distance))
-    n+=1
+
 
 print(json.dumps(adjacency_list, indent=4))
 
