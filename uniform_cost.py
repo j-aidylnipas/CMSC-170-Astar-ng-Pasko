@@ -109,11 +109,11 @@ def load_data():
 
 def print_results(result, metadata):
     if result["found"]:
-        print("\n=====Uniform Cost Search=====")
+        print("\n=== UNIFORM COST SEARCH SUCCESSFUL ===")
         print("Path: ", len(result["path"]), "barangays")
         print("Actual Topological Path Cost: ", round(result["path_cost"], 2), "meters")
         print("Total Nodes Expanded: ", result["nodes_expanded"])
-        print("Runtime: ", round(result["runtime"], 6), "seconds")
+        print(f"Runtime: {result['runtime']:.6f} seconds")
         
         print("\nPath Sequence")
         #each brgy included in the path
@@ -145,8 +145,8 @@ def main():
         return
     
     print("Running Uniform Cost Search")
-    print("Start: ", metadata[start_node]['name'])
-    print("Goal: ", metadata[goal_node]['name'])
+    print("Start: ", metadata[start_node]['name'], "(", start_node, ")")
+    print("Goal: ", metadata[goal_node]['name'], "(", goal_node, ")")
     
     
     result = uniform_cost_search(graph, metadata, start_node, goal_node)

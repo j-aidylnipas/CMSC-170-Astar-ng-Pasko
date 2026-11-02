@@ -1,7 +1,26 @@
 import json
 import heapq
 import time
-from build_graph import calc_distance_haversine # import math function for haversine formula
+import math
+
+def calc_distance_haversine(coord1, coord2):
+    # constants
+    lon1, lat1 = coord1
+    lon2, lat2 = coord2
+    R = 6371008.8
+    
+    phi1 = math.radians(lat1)
+    phi2 = math.radians(lat2)
+    delta_phi = math.radians(lat2 - lat1)
+    delta_lambda = math.radians(lon2 - lon1)
+    
+    a = (math.sin(delta_phi / 2) ** 2 + 
+         math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2) ** 2)
+         
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    
+    # distance in meters
+    return R * c
 
 def greedy_best_first_search(graph, metadata, start_id, goal_id): # Performs Greedy Best-First Search f(n) = h(n)
     if start_id not in metadata or goal_id not in metadata:
@@ -79,10 +98,10 @@ if __name__ == "__main__": # load data from .json files
         
     print(f"Loaded {len(graph)} barangays into the graph.")
     
-    # example using two adjacent barangays in Manila (from the dataset snippet)
-    # PH1380612010 -> PH1380612012 -> PH1380612013
-    start_node = "PH1380612010" 
-    goal_node = "PH1380612013"   
+    # example using two distant barangays in Laguna (from the dataset snippet)
+    # Bitin, Bay to San Agustin, Bay
+    start_node = "PH0403402001" 
+    goal_node = "PH0403402016"   
     
     print(f"\nRunning Greedy Best-First Search...")
     print(f"Start: {metadata[start_node]['name']} ({start_node})")
@@ -91,7 +110,7 @@ if __name__ == "__main__": # load data from .json files
     result = greedy_best_first_search(graph, metadata, start_node, goal_node) # execute the search algorithm
     
     if result["found"]: # output results if a path is found
-        print("=== SEARCH SUCCESSFUL ===")
+        print("=== GREEDY BEST-FIRST SEARCH SUCCESSFUL ===")
         print(f"Path found with {len(result['path'])} barangays.")
         print(f"Actual Topological Path Cost: {result['actual_path_cost']:.2f} meters")
         print(f"Total Nodes Expanded: {result['nodes_expanded']}")

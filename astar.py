@@ -140,9 +140,9 @@ if __name__ == "__main__":
     # python astar.py START_ID GOAL_ID, or no arguments to use the default example
     if len(sys.argv) == 3:
         start_node, goal_node = sys.argv[1], sys.argv[2]
-    else:
-        start_node = "PH1380612010"
-        goal_node = "PH1380612013"
+    else: 
+        start_node = "PH0403402001" # Bitin, Bay
+        goal_node = "PH0403402016" # San Agustin, Bay
 
     print("\nRunning A* Search...")
     print(f"Start: {metadata[start_node]['name']} ({start_node})")
