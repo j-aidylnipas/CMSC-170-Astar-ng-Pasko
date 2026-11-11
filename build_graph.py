@@ -50,15 +50,108 @@ def check_overlap(box1, box2, threshold):
                 box1[0] - margin > box2[2] or
                 box1[3] + margin < box2[1] or
                 box1[1] - margin > box2[3])
+                
+def to_meters(coord, lat_avg):
+    return (
+        coord[0] * 111319.9 * math.cos(lat_avg),
+        coord[1] * 111132.92
+    )
 
-def check_neighbors(polygon1, box1, polygon2, box2, threshold=15):
+# 
+def do_lines_intersect(p1, p2, p3, p4):
+    # check direction of A B C using cross product
+    def ccw(A, B, C):
+        return (C[1] - A[1]) * (B[0] - A[0]) > (B[1] - A[1]) * (C[0] - A[0])
+
+    return (ccw(p1, p3, p4) != ccw(p2, p3, p4)) and (
+      ccw(p1, p2, p3) != ccw(p1, p2, p4)
+    )
+
+
+def is_point_in_polygon(point, poly):
+    # check if point is inside polygon
+    # algorithm: shoot a line to the right of the point and if it intersects with an edge
+    # an even number of times, it is outside the polygon, else it is inside the polygon
+    x, y = point
+    n = len(poly)
+    inside = False
+    p1x, p1y = poly[0]
+    for i in range(1, n + 1):
+        p2x, p2y = poly[i % n]
+        if y > min(p1y, p2y):
+            if y <= max(p1y, p2y):
+                if x <= max(p1x, p2x):
+                    if p1y != p2y:
+                        xinters = (y - p1y) * (p2x - p1x) / (p2y - p1y) + p1x
+                    if p1x == p2x or x <= xinters:
+                        inside = not inside
+        p1x, p1y = p2x, p2y
+    return inside
+
+def point_to_segment_distance(point, a, b):
+    # calculate shortest distance from given point to edge of points (a, b)
+    lat_avg = math.radians((a[1] + b[1] + point[1]) / 3)
+ 
+    px, py = to_meters(point, lat_avg)
+    ax, ay = to_meters(a, lat_avg)
+    bx, by = to_meters(b, lat_avg)
+    
+    ab_x = bx - ax
+    ab_y = by - ay
+    ab_len_sq = ab_x**2 + ab_y**2
+    
+    if ab_len_sq == 0:
+        return math.sqrt((px - ax)**2 + (py - ay)**2)
+        
+    t = ((px - ax) * ab_x + (py - ay) * ab_y) / ab_len_sq
+    t = max(0.0, min(1.0, t))
+    
+    cx = ax + t * ab_x
+    cy = ay + t * ab_y
+    
+    return math.sqrt((px - cx)**2 + (py - cy)**2)
+
+def check_neighbors(poly_list1, box1, poly_list2, box2, threshold=15):
+    # prefiltering for efficiency
     if not check_overlap(box1, box2, threshold):
         return False
     
-    for coord1 in polygon1:
-        for coord2 in polygon2:
-            if calc_distance(coord1, coord2) <= threshold:
+    # check every polygon of barangay 1 against every polygon of barangay 2
+    for polygon1 in poly_list1:
+        for polygon2 in poly_list2:
+            # check if one of the points is inside polygon
+            if is_point_in_polygon(polygon1[0], polygon2) or is_point_in_polygon(
+              polygon2[0], polygon1
+            ):
                 return True
+
+            # check check if an edge intersects
+            n1, n2 = len(polygon1), len(polygon2)
+            for i in range(n1 - 1):
+                a1, a2 = polygon1[i], polygon1[i + 1]
+                for j in range(n2 - 1):
+                    b1, b2 = polygon2[j], polygon2[j + 1]
+                    if do_lines_intersect(a1, a2, b1, b2):
+                        return True
+            
+            # check vertices of poly1 against edges of poly2 and if it is within threshold
+            for p in polygon1:
+                for j in range(len(polygon2) - 1):
+                    if point_to_segment_distance(p, polygon2[j], polygon2[j+1]) <= threshold:
+                        return True
+                        
+            # check vertices of poly2 against edges of poly1 and if it is within threshold
+            for p in polygon2:
+                for j in range(len(polygon1) - 1):
+                    if point_to_segment_distance(p, polygon1[j], polygon1[j+1]) <= threshold:
+                        return True
+                        
+    return False
+    
+    #for coord1 in polygon1:
+    #    for coord2 in polygon2:
+    #        if calc_distance(coord1, coord2) <= threshold:
+    #            return True
     
     return False
     
@@ -68,7 +161,7 @@ with open('barangays.geojson', 'r') as file:
     data = json.load(file)
 
 adjacency_list = {} # holds the graph, key: barangay psgc id; value: list of (barangay psgc id, centroid haversine distance) pairs
-barangays = {} # holds boundary points, key: barangay psgc id; value: list of lat/lon pairs
+barangays = {} # holds boundary polygons, key: barangay psgc id; value: list of polygons
 barangays_metadata = {} # holds barangay metadata for ease of printing/lookup for later down the line.
 
 # extract metadata and boundary points
@@ -84,19 +177,18 @@ for barangay in data["features"]:
     geo_type = barangay["geometry"]["type"]
     boundaries = barangay["geometry"]["coordinates"]
     
-    points = [] # for handling multipolygon boundaries, put all into one array instead
+    poly_list = []
     if geo_type == "Polygon":
-        for point in boundaries[0]:
-            points.append(point)
+        poly_list.append(boundaries[0])
     elif geo_type == "MultiPolygon":
         for polygon in boundaries:
-            for point in polygon[0]:
-                points.append(point)
+            poly_list.append(polygon[0])
     
-    barangays[bar_id] = points
-    centroid = calc_centroid(points)
+    barangays[bar_id] = poly_list
     
-    box = get_bounding_box(points)
+    all_points = [pt for polygon in poly_list for pt in polygon]
+    centroid = calc_centroid(all_points)
+    box = get_bounding_box(all_points)
     
     barangays_metadata[bar_id] = {
         "name": name,
