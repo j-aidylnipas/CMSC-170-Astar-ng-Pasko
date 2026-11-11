@@ -120,8 +120,8 @@ def check_neighbors(poly_list1, box1, poly_list2, box2, threshold=15):
     for polygon1 in poly_list1:
         for polygon2 in poly_list2:
             # check if one of the points is inside polygon
-            if is_point_in_polygon(polygon1[0], polygon2) or is_point_in_polygon(
-              polygon2[0], polygon1
+            if any(is_point_in_polygon(p, polygon2) for p in polygon1) or any(
+                is_point_in_polygon(p, polygon1) for p in polygon2
             ):
                 return True
 
