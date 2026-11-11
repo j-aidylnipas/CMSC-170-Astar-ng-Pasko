@@ -1,5 +1,6 @@
 import json
 import time
+import sys
 
 
 #uniform cost
@@ -136,8 +137,11 @@ def print_results(result, metadata):
 def main():
     graph, metadata = load_data()
     
-    start_node = "PH0403402001"
-    goal_node = "PH0403402016"
+    if len(sys.argv) == 3:
+        start_node, goal_node = sys.argv[1], sys.argv[2]
+    else: 
+        start_node = "PH0403402001" # Bitin, Bay
+        goal_node = "PH0403402016" # San Agustin, Bay
     
     #invalid id
     if start_node not in metadata or goal_node not in metadata:
@@ -156,4 +160,4 @@ def main():
         
         
 
-main()
+#main()
