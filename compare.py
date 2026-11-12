@@ -12,7 +12,7 @@ test_cases = [
     ("PH1705205029","PH1705208004"), #multipolygon data
     ("PH1705305012","PH1705320002"), #multi to multi
     ("PH1130700023","PH1130700049"), #shortdistance
-    ("PH0201511032","PH0506212026"),
+    ("PH0403402001","PH0403402016"),
     ("PH1380100101","PH1381600011"), #fragmented (metro manila barangay)
     ("PH0306918007","PH0205706003"),
     ("PH0603029051","PH0601911004"),
