@@ -99,13 +99,12 @@ if __name__ == "__main__": # load data from .json files
         
     print(f"Loaded {len(graph)} barangays into the graph.")
     
-    # example using two distant barangays in Laguna (from the dataset snippet)
-    # Bitin, Bay to San Agustin, Bay
+    # example using two distant barangays
     if len(sys.argv) == 3:
         start_node, goal_node = sys.argv[1], sys.argv[2]
     else: 
-        start_node = "PH0403402001" # Bitin, Bay
-        goal_node = "PH0403402016" # San Agustin, Bay  
+        start_node = "PH0201511032"
+        goal_node = "PH0506212026"  
     
     print(f"\nRunning Greedy Best-First Search...")
     print(f"Start: {metadata[start_node]['name']} ({start_node})")

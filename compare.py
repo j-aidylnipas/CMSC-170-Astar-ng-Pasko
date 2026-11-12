@@ -4,8 +4,10 @@ from uniform_cost import uniform_cost_search
 import json
 
 test_cases = [
+    ("PH0201511032","PH0506212026"),
     ("PH0403411004","PH1380300008"),
     ("PH0102815004","PH0506212006"),
+    ("PH0806411002","PH0804801003"),
     ("PH1130700079","PH1130700002")
 ]
 
