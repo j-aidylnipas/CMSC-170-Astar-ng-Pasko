@@ -29,7 +29,7 @@ def calc_distance_haversine(coord1, coord2):
 def astar_search(graph, metadata, start_id, goal_id):
     # checking
     if start_id not in metadata or goal_id not in metadata:
-        raise ValueError("Start or Goal ID not found in metadata.")
+        raise ValueError("Start or Goal ID not found in metadata.", start_id, goal_id)
     if start_id not in graph:
         raise ValueError("Start ID not found in the adjacency graph.")
 
