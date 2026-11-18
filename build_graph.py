@@ -164,6 +164,11 @@ adjacency_list = {} # holds the graph, key: barangay psgc id; value: list of (ba
 barangays = {} # holds boundary polygons, key: barangay psgc id; value: list of polygons
 barangays_metadata = {} # holds barangay metadata for ease of printing/lookup for later down the line.
 
+mp_count = 0
+highest_mp = 0
+highest_mp_id = None
+highest_mp_name = None
+
 # extract metadata and boundary points
 for barangay in data["features"]:
     # metadata
@@ -181,8 +186,13 @@ for barangay in data["features"]:
     if geo_type == "Polygon":
         poly_list.append(boundaries[0])
     elif geo_type == "MultiPolygon":
+        mp_count += 1
         for polygon in boundaries:
             poly_list.append(polygon[0])
+        if len(poly_list) > highest_mp:
+            highest_mp = len(poly_list)
+            highest_mp_id = bar_id
+            highest_mp_name = name
     
     barangays[bar_id] = poly_list
     
@@ -198,6 +208,9 @@ for barangay in data["features"]:
         "centroid": centroid,
         "boundary_box": box
     }
+    
+print(f"MultiPolygon boundary count: {mp_count}")
+print(f"Most polygons in a single boundary: {highest_mp}, {highest_mp_name} ({highest_mp_id})")
 
 # build adjacency list
 for psgc_id in barangays_metadata.keys():
