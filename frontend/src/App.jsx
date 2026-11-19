@@ -9,10 +9,10 @@ function App() {
         <h1>Optimal pathfinding using Philippine barangay boundaries</h1>
         <div>
           <p>A* ng Pasko</p>
-          <p>Name 1</p>
-          <p>Name 2</p>
-          <p>Name 3</p>
-          <p>Name 4</p>
+          <p>Estabillo, Jeri Lian G.</p>
+          <p>Nipas, Juzhel Aidyl T.</p>
+          <p>Oblena, Dann Lawrence O.</p>
+          <p>Pereja, Jamie Adrianne L.</p>
         </div>
       </div>
       
@@ -96,12 +96,47 @@ function App() {
         <p>Test.</p>
       </div>
       <div>
-        <h2>Results</h2>
-        <p>Test.</p>
-      </div>
-      <div>
-        <h2>Discussion</h2>
-        <p>Test.</p>
+        <h2>Results and Discussion</h2>
+          <div class="wrap">
+          <table>
+            <caption>Average</caption>
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Uniform Cost Search Algorithm</th>
+                <th scope="col">A* Search Algorithm</th>
+                <th scope="col">Greedy Best-First Search Algorithm</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Optimality Rate</th>
+                <td>100.00%</td>
+                <td>100.00%</td>
+                <td>20.00%</td>
+              </tr>
+              <tr>
+                <th scope="row">Percent Optimality</th>
+                <td>100.00%</td>
+                <td>100.00%</td>
+                <td>87.24%</td>
+              </tr>
+              <tr>
+                <th scope="row">Number of Nodes Expanded</th>
+                <td>3603.3333333333335</td>
+                <td>2422.733</td>
+                <td>109.13333333333334</td>
+              </tr>
+              <tr>
+                <th scope="row">Runtime (seconds)</th>
+                <td>0.969013</td>
+                <td>0.008477</td>
+                <td>0.0004488</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">*All test cases were executed with 13th Gen Intel® Core™ i5-13500H, Windows 11, x86_64*</p>
+        </div>
       </div>
       <div>
         <h2>References</h2>
