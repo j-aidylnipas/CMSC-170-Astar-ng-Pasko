@@ -156,9 +156,17 @@ function App() {
 
             <h3>Metrics</h3>
             <p>Two characteristics are measured in each algorithm: <em>efficiency</em> and <em>optimality</em>.</p>
+
+            <h4>Efficiency</h4>
             <p>To measure the efficiency of an algorithm, we get the <strong>nodes expanded/popped</strong> from the priority queue, and the <strong>runtime</strong>. To ensure consistent results for runtime, only one machine will be used for the execution of all test cases in the experiment. The machine specs are <em>13th Gen Intel® Core™ i5-13500H, Windows 11</em>. The average nodes expanded and runtime of the algorithm will also be calculated.</p>
+
+            <h4>Optimality</h4>
             <p>To measure the optimality of an algorithm, we get the <strong>optimality rate</strong> and the <strong>percent optimality</strong> of the algorithm. The optimality rate of an algorithm is the measure of how often the algorithm gets the optimal solution, calculated as:</p>
-            <BlockMath math="Rate_{\text{Optimality}} = \frac{Paths_{\text{Optimal}}}{TotalCases}" />
+            <BlockMath math="Rate_{\text{Optimality}} = \frac{Paths_{\text{Optimal}}}{TotalCases} \times 100\%" />
+            <p>The percent optimality of an algorithm is the measure of how far an algorithm's solution is to the optimal solution, calculated as:</p>
+            <BlockMath math="\text{Percent}_{\text{Optimality}} = \left( 1 - \left| \frac{\text{Cost}_{\text{Solution}} - \text{Cost}_{\text{Optimal}}}{\text{Cost}_{\text{Optimal}}} \right| \right) \times 100\%" />
+            <p>We will get the average percent optimality of all runs/test cases.</p>
+            <p>Because Uniform Cost Search solutions always guarantee optimal solutions, any calculation involving values of an optimal solution will use results from Uniform Cost Search runs.</p>
           </section>
 
           {/* Results */}
@@ -210,30 +218,28 @@ function App() {
               <img src={average_nodes_expanded} alt="Bar graph comparing average nodes expanded across algorithms" />
               <figcaption>Figure 1. Bar Graph for Average Number of Nodes Expanded</figcaption>
             </figure>
-            <p> The results shows that uniform cost search accounts for the largest proportion of expanded nodes, 
-              followed by A* Search. Furthermore, greedy best-first search accounts for only a small portion of the 
-              total. This indicates that uniform cost search explores significantly larger nodes than the other algorithms. </p>
+            <p>The results show that Uniform Cost Search accounts for the largest average number of expanded nodes (3,603.33), followed by A* Search (2,422.73), while Greedy Best-First Search expands only a small fraction (109.13). This indicates that Uniform Cost Search explores a substantially broader portion of the barangay graph than heuristic-guided search.</p>
 
             <figure className="figure">
               <img src={average_runtime} alt="Bar graph comparing average runtime in seconds across algorithms" />
               <figcaption>Figure 2. Average Runtime</figcaption>
             </figure>
-            <p>The results shows that greedy best-first search have the significantly largest average runtime compared to
-              A* search algorithm and uniform cost search algorithm. This indicates that greedy best-first search is the 
-              slowest of the three algorithms.
-            </p>
+            <p>The results show that Uniform Cost Search has the largest average runtime (0.969013 s), followed by A* Search (0.008477 s), while Greedy Best-First Search has the lowest average runtime (0.0004488 s). Guiding search with the Haversine heuristic dramatically reduces execution time compared to uninformed cost expansion.</p>
 
             <figure className="figure">
               <img src={scatterplot_runtime_nodesexpanded} alt="Scatterplot comparing runtime against nodes expanded" />
               <figcaption>Figure 3. Runtime vs. Nodes Expanded</figcaption>
             </figure>
-            <p> The results show that for the 3 algorithms, runtime is negligible when the nodes expanded are small. 
-              As the number of nodes expanded increase, the runtime of UCS is much higher than that of A*. This 
-              indicates that A* is more efficient when dealing with wider searches than UCS. It is also observed that 
-              Greedy Best First tends to expand fewer nodes than A* and UCS, while UCS tends to expand more nodes than 
-              A* and Greedy Best First.
-            </p>
+            <p>The results show that across all three algorithms, runtime is negligible when the number of nodes expanded is small. As the number of expanded nodes increases, Uniform Cost Search incurs much higher runtime than A* Search, indicating that A* handles wider spatial searches more efficiently than UCS. Greedy Best-First Search consistently expands the fewest nodes and runs fastest, whereas Uniform Cost Search expands the most nodes.</p>
+          </section>
 
+          {/* Conclusion */}
+          <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>Across the 15 barangay pathfinding test cases, the evaluation of Uniform Cost Search (UCS), A* Search, and Greedy Best-First Search (GBFS) highlights a clear trade-off between <strong>search efficiency</strong> and <strong>path optimality</strong> on the Philippine barangay boundary graph.</p>
+            <p>Both <strong>Uniform Cost Search</strong> and <strong>A* Search</strong> achieved a <strong>100.00%</strong> optimality rate and <strong>100.00%</strong> percent optimality across all test cases. However, A* Search substantially outperformed UCS in efficiency, reducing average nodes expanded from <strong>3,603.33</strong> to <strong>2,422.73</strong> (~32.8% fewer nodes) and cutting average runtime from <strong>0.969013 s</strong> to <strong>0.008477 s</strong> (~114× faster) by combining accumulated path cost <InlineMath math="g(n)" /> with the Haversine centroid heuristic <InlineMath math="h(n)" />.</p>
+            <p><strong>Greedy Best-First Search</strong> was the fastest and most node-efficient algorithm overall—averaging <strong>109.13</strong> expanded nodes and <strong>0.0004488 s</strong> runtime—because it expands purely toward the goal using <InlineMath math="h(n)" />. However, that speed came at the cost of accuracy, achieving only a <strong>20.00%</strong> optimality rate and <strong>87.24%</strong> average percent optimality when greedy directional movement bypassed lower-cost boundary paths or encountered complex coastal and MultiPolygon topologies.</p>
+            <p>Overall, <strong>A* Search</strong> provides the best balance for applications requiring guaranteed shortest paths—such as disaster response routing, relief logistics, and public health or hub planning—while <strong>Greedy Best-First Search</strong> is only suitable when rapid approximate routes are acceptable and exact path optimality is not critical.</p>
           </section>
 
           {/* References */}
