@@ -165,6 +165,9 @@ barangays = {} # holds boundary polygons, key: barangay psgc id; value: list of 
 barangays_metadata = {} # holds barangay metadata for ease of printing/lookup for later down the line.
 
 mp_count = 0
+highest_v = 0
+highest_v_id = None
+highest_v_name = None
 highest_mp = 0
 highest_mp_id = None
 highest_mp_name = None
@@ -185,10 +188,18 @@ for barangay in data["features"]:
     poly_list = []
     if geo_type == "Polygon":
         poly_list.append(boundaries[0])
+        if len(boundaries[0]) > highest_v:
+            highest_v = len(boundaries[0])
+            highest_v_id = bar_id
+            highest_v_name = name
     elif geo_type == "MultiPolygon":
         mp_count += 1
         for polygon in boundaries:
             poly_list.append(polygon[0])
+            if len(polygon[0]) > highest_v:
+                highest_v = len(polygon[0])
+                highest_v_id = bar_id
+                highest_v_name = name
         if len(poly_list) > highest_mp:
             highest_mp = len(poly_list)
             highest_mp_id = bar_id
@@ -208,7 +219,8 @@ for barangay in data["features"]:
         "centroid": centroid,
         "boundary_box": box
     }
-    
+
+print(f"Most number of vertices in a single polygon: {highest_v}, {highest_v_name} ({highest_v_id})")
 print(f"MultiPolygon boundary count: {mp_count}")
 print(f"Most polygons in a single boundary: {highest_mp}, {highest_mp_name} ({highest_mp_id})")
 
