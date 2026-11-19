@@ -248,6 +248,13 @@ function App() {
             <p>Greedy Best-First Search achieved the lowest average number of expanded nodes of 109.134 and the fastest average runtime at 0.0004488 seconds. However, it recorded a 20% optimality rate, indicating that a small part of its solutions across the 15 test cases were optimal. The solutions that the algorithm finds are, on average, +-87.24% from the optimal solution. The algorithm is expected to be the fastest because it prioritizes nodes based only on their estimated distance to the goal rather than considering the total path cost. </p>
           </section>
 
+          <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>Across the 15 test cases, the three algorithms showed different tradeoffs in efficiency and optimality.</p>
+            <p>Uniform Cost Search and A* search were able to get a 100% optimality rate and always got the optimal path. However, A* search's usage of a heuristic made it much more efficient at handling larger distance paths than Uniform Cost Search who only relied on the actual path cost and blindly explores the graph.</p>
+            <p>Greedy Best-First Search was the fastest algorithm of the three, as it greedily explores a single path straight toward the goal. Because of this, it does not try to expand sidewards and so does not guarantee an optimal solution. For the dataset, it only gets the optimal path 20% of the time, and of its solutions, only gets an average of 87.24% away from the optimal path.</p>
+          </section>
+
           {/* References */}
           <section id="references">
             <h2>References</h2>
