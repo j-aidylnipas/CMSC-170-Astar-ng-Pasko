@@ -248,6 +248,12 @@ function App() {
             <p>Greedy Best-First Search achieved the lowest average number of expanded nodes of 109.134 and the fastest average runtime at 0.0004488 seconds. However, it recorded a 20% optimality rate, indicating that a small part of its solutions across the 15 test cases were optimal. The solutions that the algorithm finds are, on average, +-87.24% from the optimal solution. The algorithm is expected to be the fastest because it prioritizes nodes based only on their estimated distance to the goal rather than considering the total path cost. </p>
           </section>
 
+          <section>
+            <h3>Future Improvements</h3>
+            <p>The dataset, as mentioned by the maintainer, does not exactly contain the real boundary of the barangay and are only polygon estimations, especially that of very small barangays that are currently estimated using triangles. A close to accurate boundary data can help build an adjacency graph much closer to the real barangay boundary data.</p>
+          </section>
+
+          {/* Conclusion */}
           <section id="conclusion">
             <h2>Conclusion</h2>
             <p>Across the 15 test cases, the three algorithms showed different tradeoffs in efficiency and optimality.</p>
