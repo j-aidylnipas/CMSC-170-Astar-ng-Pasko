@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 @font-face {
   font-family: 'HelveticaCustom';
   src: url('./assets/fonts/Helvetica.ttf') format('truetype');
@@ -11,60 +12,213 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  padding: 0px 20%;
   background-color: rgb(244, 244, 244);
-  font-family: 'HelveticaCustom';
+  color: #1a1a1a;
+  font-family: 'HelveticaCustom', Helvetica, Arial, sans-serif;
+  line-height: 1.65;
+}
+
+/* ---------- Navigation Bar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #ffffff;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.navbar-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+}
+
+.navbar-links li {
+  margin: 0;
+}
+
+.navbar-links a {
+  display: block;
+  padding: 6px 14px;
+  border-bottom: 2px solid transparent;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navbar-links a:hover {
+  border-bottom-color: #999;
+}
+
+.navbar-links a.active {
+  border-bottom-color: #1a1a1a;
+  font-weight: 700;
+}
+
+.navbar-links a:focus-visible {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 2px;
+}
+
+/* ---------- Layout ---------- */
+.article {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+}
+
+.article > h1 {
+  margin-bottom: 20px;
+}
+
+.authors {
+  margin-bottom: 40px;
+}
+
+.authors p {
+  font-size: 17px;
+  margin-bottom: 2px;
+}
+
+.authors p:first-child {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+section {
+  margin-bottom: 48px;
 }
 
 p {
   font-size: 17px;
+  margin-bottom: 14px;
 }
 
-/* FOR ALL TITLE/HEADER STYLES */
+/* ---------- Headings ---------- */
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
+  line-height: 1.2;
 }
 
-/* MAIN TITLE */
-h1 {
-  font-size: 72px;
-}
+h1 { font-size: 48px; }
+h2 { font-size: 35px; margin-bottom: 16px; }
+h3 { font-size: 26px; margin: 28px 0 12px; }
+h4 { font-size: 17px; margin: 22px 0 8px; }
 
-/* SECTION TITLE */
-h2 {
-  font-size: 35px;
-}
-
-/* SUBSECTION */
-h3 {
-  font-size: 26px;
-}
-
-/* STEP */
-h4 {
-  font-size: 17px;
-}
-
+/* ---------- Lists ---------- */
 ol, ul {
-  margin-left: 0;
+  margin: 0 0 14px 0;
   padding-left: 0;
   list-style-position: inside;
 }
 
+li {
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+/* ---------- Tables ---------- */
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
 table {
   border: 1px solid black;
+  border-collapse: collapse;
   caption-side: bottom;
+  background: #fff;
+}
+
+/* ---------- Figures ----------*/
+.figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px auto;
+  width: 100%;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain; 
+  display: block;
+}
+
+.figure figcaption {
+  padding-top: 8px;
+  font-size: 15px;
+  text-align: center;
+  color: #555;
+}
+
+caption {
+  padding-top: 8px;
+  font-size: 15px;
+  text-align: center;
 }
 
 td, th {
-  padding: 5px;
+  padding: 8px 10px;
+  border: 1px solid #bbb;
 }
 
-.figure {
-  margin: 0 auto;
+.note {
+  font-size: 14px;
+  font-style: italic;
+  color: #555;
 }
 
-.figure-caption {
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 1px solid #d6d6d6;
+  padding: 24px 20px;
   text-align: center;
+  color: #555;
+}
+
+.footer p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 600px) {
+  h1 { font-size: 34px; }
+  h2 { font-size: 28px; }
+}
+
+/* ----------- Article -------------*/
+.article p,
+.article li {
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* Authors */
+.authors p {
+  text-align: left;
 }
