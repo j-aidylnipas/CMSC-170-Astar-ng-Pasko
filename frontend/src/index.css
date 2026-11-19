@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'HelveticaCustom';
+  src: url('./assets/fonts/Helvetica.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 0px 20%;
+  background-color: rgb(244, 244, 244);
+  font-family: 'HelveticaCustom';
+}
+
+p {
+  font-size: 17px;
+}
+
+/* FOR ALL TITLE/HEADER STYLES */
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* MAIN TITLE */
+h1 {
+  font-size: 72px;
+}
+
+/* SECTION TITLE */
+h2 {
+  font-size: 35px;
+}
+
+/* SUBSECTION */
+h3 {
+  font-size: 26px;
+}
+
+/* STEP */
+h4 {
+  font-size: 17px;
+}
+
+ol, ul {
+  margin-left: 0;
+  padding-left: 0;
+  list-style-position: inside;
+}
