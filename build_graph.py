@@ -219,6 +219,8 @@ for barangay in data["features"]:
         "centroid": centroid,
         "boundary_box": box
     }
+print(json.dumps(barangays["PH1102319022"], indent=4))
+print(json.dumps(barangays_metadata["PH1102319022"],indent=4))
 
 print(f"Most number of vertices in a single polygon: {highest_v}, {highest_v_name} ({highest_v_id})")
 print(f"MultiPolygon boundary count: {mp_count}")
