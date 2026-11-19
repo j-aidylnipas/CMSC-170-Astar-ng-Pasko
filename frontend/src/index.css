@@ -23,65 +23,6 @@ body {
   line-height: 1.65;
 }
 
-/* ---------- Navigation Bar ---------- */
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: #ffffff;
-  border-bottom: 1px solid #d6d6d6;
-}
-
-.navbar-inner {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 20px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.navbar-brand {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 20px;
-}
-
-.navbar-links {
-  display: flex;
-  gap: 8px;
-  list-style: none;
-  margin: 0;
-}
-
-.navbar-links li {
-  margin: 0;
-}
-
-.navbar-links a {
-  display: block;
-  padding: 6px 14px;
-  border-bottom: 2px solid transparent;
-  color: #1a1a1a;
-  text-decoration: none;
-  font-size: 16px;
-}
-
-.navbar-links a:hover {
-  border-bottom-color: #999;
-}
-
-.navbar-links a.active {
-  border-bottom-color: #1a1a1a;
-  font-weight: 700;
-}
-
-.navbar-links a:focus-visible {
-  outline: 2px solid #1a1a1a;
-  outline-offset: 2px;
-}
-
 /* ---------- Layout ---------- */
 .article {
   max-width: 800px;
@@ -150,6 +91,7 @@ table {
   border-collapse: collapse;
   caption-side: bottom;
   background: #fff;
+  width: 100%;
 }
 
 /* ---------- Figures ----------*/
@@ -168,17 +110,11 @@ table {
   display: block;
 }
 
-.figure figcaption {
+.figure figcaption, caption {
   padding-top: 8px;
   font-size: 15px;
   text-align: center;
   color: #555;
-}
-
-caption {
-  padding-top: 8px;
-  font-size: 15px;
-  text-align: center;
 }
 
 td, th {
@@ -221,4 +157,27 @@ td, th {
 /* Authors */
 .authors p {
   text-align: left;
+}
+
+.link-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+}
+
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #ffffff;
+  background-color: #1f2937;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
 }
