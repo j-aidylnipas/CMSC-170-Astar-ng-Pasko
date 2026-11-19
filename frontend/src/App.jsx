@@ -62,11 +62,11 @@ function App() {
             <p>To prepare for adjacency graph building, important boundary data is extracted from the raw geojson file. On top of the polygon list data and administrative metadata, the centroid and the minimum bounding box is also calculated from the points in the polygon list. The centroid is the average of all latitude and longitude points of the barangay boundary, regardless of the geometry type of the boundary. The minimum bounding box is the minimum 4-vertice polygon needed to contain the polygons of the boundary, found by getting the minimum and maximum latitude and longitude of the points in the polygon list.</p>
             <figure className='figure'>
               <img src={brgy_poly} width="200" />
-              <figcaption>Figure 1. Polygon list of Barangay Visayan Village after Step 1</figcaption>
+              <figcaption>Figure 2. Polygon list of Barangay Visayan Village after Step 1</figcaption>
             </figure>
             <figure className='figure'>
               <img src={brgy_md} />
-              <figcaption>Figure 2. Metadata of Barangay Visayan Village after Step 1</figcaption>
+              <figcaption>Figure 3. Metadata of Barangay Visayan Village after Step 1</figcaption>
             </figure>
 
             <h4>Step 2. Neighbor Finding and Adjacency Graph</h4>
@@ -91,11 +91,11 @@ function App() {
             <p>With 4 trigonometric functions and 1 square root expression, this is the most calculationally expensive section of the program. The program will take as long as 6-8 minutes to complete.</p>
             <figure className='figure'>
               <img src={brgy_adj} />
-              <figcaption>Figure 3. The adjacency list of Barangay Visayan Village after Step 3</figcaption>
+              <figcaption>Figure 4. The adjacency list of Barangay Visayan Village after Step 3</figcaption>
             </figure>
             <figure className='figure'>
               <img src={maps_adj} />
-              <figcaption>Figure 4. Maps view of the barangay boundaries, with Barangay Visayan Village highlighted in red</figcaption>
+              <figcaption>Figure 5. Maps view of the barangay boundaries, with Barangay Visayan Village highlighted in red</figcaption>
             </figure>
 
             <h4>Step 3. Serialization</h4>
@@ -222,19 +222,19 @@ function App() {
             {/* Figures and Graphs */}
             <figure className="figure">
               <img src={average_nodes_expanded} alt="Bar graph comparing average nodes expanded across algorithms" />
-              <figcaption>Figure 4. Bar Graph for Average Number of Nodes Expanded</figcaption>
+              <figcaption>Figure 6. Bar Graph for Average Number of Nodes Expanded</figcaption>
             </figure>
             <p>The results show that Uniform Cost Search accounts for the largest average number of expanded nodes (3,603.33), followed by A* Search (2,422.73), while Greedy Best-First Search expands only a small fraction (109.13). This indicates that Uniform Cost Search explores a substantially broader portion of the barangay graph than heuristic-guided search.</p>
 
             <figure className="figure">
               <img src={average_runtime} alt="Bar graph comparing average runtime in seconds across algorithms" />
-              <figcaption>Figure 5. Bar Graph for Average Runtime</figcaption>
+              <figcaption>Figure 7. Bar Graph for Average Runtime</figcaption>
             </figure>
             <p>The results show that Uniform Cost Search has the largest average runtime (0.969013 s), followed by A* Search (0.008477 s), while Greedy Best-First Search has the lowest average runtime (0.0004488 s). Guiding search with the Haversine heuristic dramatically reduces execution time compared to uninformed cost expansion.</p>
 
             <figure className="figure">
               <img src={scatterplot_runtime_nodesexpanded} alt="Scatterplot comparing runtime against nodes expanded" />
-              <figcaption>Figure 6. Runtime vs. Nodes Expanded</figcaption>
+              <figcaption>Figure 8. Runtime vs. Nodes Expanded</figcaption>
             </figure>
             <p>The results show that across all three algorithms, runtime is negligible when the number of nodes expanded is small. As the number of expanded nodes increases, Uniform Cost Search incurs much higher runtime than A* Search, indicating that A* handles wider spatial searches more efficiently than UCS. Greedy Best-First Search consistently expands the fewest nodes and runs fastest, whereas Uniform Cost Search expands the most nodes.</p>
           </section>
