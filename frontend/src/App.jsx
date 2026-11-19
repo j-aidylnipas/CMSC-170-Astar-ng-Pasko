@@ -93,7 +93,100 @@ function App() {
       </div>
       <div>
         <h2>Experimental Setup</h2>
-        <p>Test.</p>
+        <h3>Test Cases</h3>
+        <p>15 different pairs of start barangays and end barangays, consisting of barangays and barangay pairs of different characteristics such as MultiPolygon endpoints, long- and short-distance paths, and from different parts of the country, will be used as the test cases.</p>
+        <table class='figure'>
+          <caption>Table 1. Test Cases</caption>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Start</th>
+              <th>Goal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Camalaggoan/D Leano, Claveria (PH0201511032)</td>
+              <td>Mambajog, Matnog (PH0506212026)</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Batong Malake, Los Banos (PH0403411004)</td>
+              <td>Forbes Park, City of Makati (PH1380300008)</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Balaoi, Pagudpud (PH0102815004)</td>
+              <td>Bon-Ot Big, Matnog (PH0804801003)</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Balongbalong, Pintuyan (PH0806411002)</td>
+              <td>Cabacungan, Allen (PH0804801003)</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Mintal, Davao City (PH1130700079)</td>
+              <td>Agdao, Davao City (PH1130700002)</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Lazareto, City of Calapan (Capital) (PH1705205029)</td>
+              <td>Arangin, Naujan (PH1705208004)</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Puring, Bataraza (PH1705305012)</td>
+              <td>Banbanan, Taytay (PH1705320002)</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Cabantian, Davao City (PH1130700023)</td>
+              <td>Ilang, Davao City (PH1130700049)</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Bitin, Bay (PH0403402001)</td>
+              <td>San Agustin, Bay (PH0403402016)</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Barangay 101, Caloocan City (PH1380100101)</td>
+              <td>Gen. T. De Leon, City of Valenzuela (PH1381600011)</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>Maamot, San Jose (PH0306918007)</td>
+              <td>Dissimungal, Nagtipunan (PH0205706003)</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Trangka, Maasin (PH0603029051)</td>
+              <td>Casanayan, Pilar (PH0601911004)</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>Calero, City of Calapan (Capital) (PH1705205013)</td>
+              <td>Pasi I, Socorro (PH1705214018)</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>Patuco, Sarangani (PH1108605005)</td>
+              <td>Laker, Sarangani (PH1108605006)</td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>Rio Del Pilar, Glan (PH1208002024)</td>
+              <td>Glan Padidu, Glan (PH1208002013)</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Metrics</h3>
+        <p>Two characteristics are measured in each algorithm: <span style={{fontStyle: 'italic'}}>efficiency</span> and <span style={{fontStyle: 'italic'}}>optimality</span>.</p>
+        <p>To measure the efficiency of an algorithm, we get the <span style={{fontWeight: 'bold'}}>nodes expanded/popped</span> from the priority queue, and the <span style={{fontWeight: 'bold'}}>runtime</span>. To ensure consistent results for runtime, only one machine will be used for the execution of all test cases in the experiment. The machine specs are <span style={{fontStyle: 'italic'}}>13th Gen Intel ® Core (TM) i5-135000H, Windows 11</span>. The average nodes expanded and runtime of the algorithm will also be calculated.</p>
+        <p>To measure the optimality of an algorithm, we get the <span style={{fontWeight: 'bold'}}>optimality rate</span> and the <span style={{fontWeight: 'bold'}}>percent optimality</span> of the algorithm. The optimality rate of an algorithm is the measure of how often the algorithm gets the optimal solution, calculated as:</p>
+        <BlockMath math='Rate_{\text{Optimality}} = \frac{Paths_{\text{Optimal}}}{TotalCases}' />
       </div>
       <div>
         <h2>Results and Discussion</h2>

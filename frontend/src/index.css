@@ -51,3 +51,20 @@ ol, ul {
   padding-left: 0;
   list-style-position: inside;
 }
+
+table {
+  border: 1px solid black;
+  caption-side: bottom;
+}
+
+td, th {
+  padding: 5px;
+}
+
+.figure {
+  margin: 0 auto;
+}
+
+.figure-caption {
+  text-align: center;
+}
