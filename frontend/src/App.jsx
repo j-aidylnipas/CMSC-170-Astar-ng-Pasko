@@ -19,10 +19,12 @@ function App() {
       {/* Problem Statement */}
       <div>
         <h2>Problem Statement</h2>
-        <p>Given a starting barangay, determine the optimal path to a given destination barangay by traversing only through barangay boundaries based on a GeoJSON dataset. In mathematical terms, we determine the shortest path of an undirected weighted graph G = (V, E), where:</p>
-        <p>V = a barangay</p>
-        <p>E = connects two barangays V and U with a neighboring topological boundary</p>
-        <p>Weight(E) = the Haversine distance of barangay V's boundary centroid to an adjacent barangay U's boundary centroid</p>
+        <p>Given a starting barangay, determine the optimal path to a given destination barangay by traversing only through barangay boundaries based on a GeoJSON dataset. In mathematical terms, we determine the shortest path of an undirected weighted graph <InlineMath math="G = (V,E)" />, where:</p>
+        <ul>
+          <li><InlineMath math="V" /> = barangay</li>
+          <li><InlineMath math="E" /> = edge connecting two barangays V and U with a neighboring topological boundary</li>
+          <li><InlineMath math="Weight(E)" /> = the Haversine distance of barangay V's boundary centroid to an adjacent barangay U's boundary centroid</li>
+        </ul>
 
         {/* Motivation */}
         <div>
@@ -46,11 +48,11 @@ function App() {
           <h4>Step 1. Boundary Data Extraction</h4>
           <p>To prepare for adjacency graph building, important boundary data is extracted from the raw geojson file. On top of the polygon list data and administrative metadata, the centroid and the minimum bounding box is also calculated from the points in the polygon list. The centroid is the average of all latitude and longitude points of the barangay boundary, regardless of the geometry type of the boundary. The minimum bounding box is the minimum 4-vertice polygon needed to contain the polygons of the boundary, found by getting the minimum and maximum latitude and longitude of the points in the polygon list.</p>
           <h4>Step 2. Neighbor Finding and Adjacency Graph</h4>
-          <p>Two barangay boundaries, V and U, are determined to be neighbors if any of their polygons P(V) and P(U) meet any of these 3 conditions, checked by the graph building program in order:</p>
+          <p>Two barangay boundaries, <InlineMath math="V" /> and <InlineMath math="U" />, are determined to be neighbors if any of their polygons <InlineMath math="P(V)" /> and <InlineMath math="P(U)" /> meet any of these 3 conditions, checked by the graph building program in order:</p>
           <ol>
-            <li>A vertice of P(V) is inside P(U), or vice versa.</li>
-            <li>An edge of P(V) intersects an edge of P(U), or vice versa.</li>
-            <li>A vertice of P(V) is within an adjustable threshold (in our case, 15 meters) of an edge of P(U), or vice versa.</li>
+            <li>A vertice of <InlineMath math="P(V)" /> is inside <InlineMath math="P(U)" />, or vice versa.</li>
+            <li>An edge of <InlineMath math="P(V)" /> intersects an edge of <InlineMath math="P(U)" />, or vice versa.</li>
+            <li>A vertice of <InlineMath math="P(V)" /> is within an adjustable threshold (in our case, 15 meters) of an edge of <InlineMath math="P(U)" />, or vice versa.</li>
           </ol>
           <p>To speed up neighbor calculations, the minimum bounding box calculated on step 1 is used as a prefilter to skip barangays that are clearly not neighbors if their bounding boxes do no intersect.</p>
           <p>If two boundaries are deemed neighbors, their PSGC IDs are added to both of their entries in the adjacency dictionary along with the Haversine distance of their centroids as edge weights. The Haversine formula determines the shortest distance of two latitude-longitude points over Earth's surface. The complete formula is as seen below:</p>
@@ -64,6 +66,7 @@ function App() {
             <li><InlineMath math="\lambda" /> = longitude</li>
             <li><InlineMath math="r" /> = radius of the sphere (in this case, radius of the Earth)</li>
           </ul>
+          <p>For computational purposes, a revised Haversine formula will be used for the program, deriving <InlineMath math="\arcsin(a) = \arctan(\frac{\sqrt{a}}{\sqrt{1-a}})" />.</p>
           {/*Image reference: https://teaching.csse.uwa.edu.au/units/CITS2002/workshops/workshop3.php*/}
           <p>With 4 trigonometric functions and 1 square root expression, this is the most calculationally expensive section of the program. The program will take as long as 6-8 minutes to complete.</p>
 
@@ -184,9 +187,17 @@ function App() {
         </table>
         <h3>Metrics</h3>
         <p>Two characteristics are measured in each algorithm: <span style={{fontStyle: 'italic'}}>efficiency</span> and <span style={{fontStyle: 'italic'}}>optimality</span>.</p>
+
+        <h4>Efficiency</h4>
         <p>To measure the efficiency of an algorithm, we get the <span style={{fontWeight: 'bold'}}>nodes expanded/popped</span> from the priority queue, and the <span style={{fontWeight: 'bold'}}>runtime</span>. To ensure consistent results for runtime, only one machine will be used for the execution of all test cases in the experiment. The machine specs are <span style={{fontStyle: 'italic'}}>13th Gen Intel ® Core (TM) i5-135000H, Windows 11</span>. The average nodes expanded and runtime of the algorithm will also be calculated.</p>
+
+        <h4>Optimality</h4>
         <p>To measure the optimality of an algorithm, we get the <span style={{fontWeight: 'bold'}}>optimality rate</span> and the <span style={{fontWeight: 'bold'}}>percent optimality</span> of the algorithm. The optimality rate of an algorithm is the measure of how often the algorithm gets the optimal solution, calculated as:</p>
-        <BlockMath math='Rate_{\text{Optimality}} = \frac{Paths_{\text{Optimal}}}{TotalCases}' />
+        <BlockMath math='Rate_{\text{Optimality}} = \frac{NumberOfOptimalPaths}{TotalCases} \times 100\%' />
+        <p>The percent optimality of an algorithm is the measure of how far an algorithm's solution is to the optimal solution, calculated as:</p>
+        <BlockMath math='Percent_{\text{Optimality}} = 1 - \left| \frac{Cost_{\text{Solution}} - Cost_{\text{Optimal}}}{Cost_{\text{Optimal}}} \right| \times 100\%' />
+        <p>We will get the average percent optimality of all runs/test cases.</p>
+        <p>Because Uniform Cost Search solutions always guarantee optimal solutions, any calculation involving values of an optimal solution will use results from Uniform Cost Search runs.</p>
       </div>
       <div>
         <h2>Results and Discussion</h2>
