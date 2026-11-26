@@ -372,29 +372,33 @@ function App() {
               <img src={average_best} alt="Bar graph comparing average runtime in seconds across algorithms" />
               <figcaption>Figure 7. Best Case Bar Graph for Average Runtime and Nodes Expanded</figcaption>
             </figure>
+            <p>The graph shows that in the best case scenario, the UCS Algorithm yielded the highest in nodes expanded, and had the longest runtime while both the A* Search and GBFS had almost the exact same run time and nodes expanded. Since A* Search has a higher optimality rate than GBFS, we can conclude that A* Search Algorithm is more efficient for the best case scenario. </p>
             <figure className="figure">
               <img src={average_avg} alt="Bar graph comparing average runtime in seconds across algorithms" />
               <figcaption>Figure 8. Average Case Bar Graph for Average Runtime and Nodes Expanded</figcaption>
             </figure>
+            <p>The graph shows that in the average case scenario, the UCS Algorithm yielded the highest in nodes expanded and had the longest runtime, followed by the A* Search and then GBFS in both run time and nodes expanded. Since A* Search has a faster run time than UCS, we can conclude that A* Search Algorithm is more efficient for the average case scenario.</p>
             <figure className="figure">
               <img src={average_worst} alt="Worst Case Bar Graph for Average Runtime and Nodes Expanded" />
               <figcaption>Figure 9. Worst Case Bar Graph for Average Runtime and Nodes Expanded</figcaption>
             </figure>
-            <p>The results show that Uniform Cost Search has the largest average runtime (0.969013 s), followed by A* Search (0.008477 s), while Greedy Best-First Search has the lowest average runtime (0.0004488 s). Guiding search with the Haversine heuristic dramatically reduces execution time compared to uninformed cost expansion.</p>
+      
 
             <figure className="figure">
               <img src={trend_best} alt="Scatterplot comparing runtime against nodes expanded" />
               <figcaption>Figure 8. Best Case Runtime vs. Nodes Expanded</figcaption>
             </figure>
+            <p>The scatterplot and trendline shows that at very small node counts, all three algorithms roughly share the same nodes expanded and runtime. As nodes expanded increase, runtime also increases. UCS has a steeper trendline compared to A* and Greedy, which means that it costs more runtime to process each node. Points for A* and Greedy are also not very consistent with the trendline, so the performance results may vary at very short distances. On the other hand, UCS generally follows the trendline, so its performance is predictable.</p>
             <figure className="figure">
               <img src={trend_avg} alt="Scatterplot comparing runtime against nodes expanded" />
               <figcaption>Figure 8. Average Case Runtime vs. Nodes Expanded</figcaption>
             </figure>
+            <p>The scatterplot and trendline still shows the high runtime cost per node of UCS, albeit much steeper than at the worst case. A* search's trendline is much flatter which means the runtime grows slowly per node expanded. It is also observed that the trendline converges at around 100 nodes and starts diverging once the node count goes higher.</p>
             <figure className="figure">
               <img src={trend_worst} alt="Scatterplot comparing runtime against nodes expanded" />
               <figcaption>Figure 8. Worst Case Runtime vs. Nodes Expanded</figcaption>
             </figure>
-            <p>The results show that across all three algorithms, runtime is negligible when the number of nodes expanded is small. As the number of expanded nodes increases, Uniform Cost Search incurs much higher runtime than A* Search, indicating that A* handles wider spatial searches more efficiently than UCS. Greedy Best-First Search consistently expands the fewest nodes and runs fastest, whereas Uniform Cost Search expands the most nodes.</p>
+            <p>The scatterplot and trendline for Worst Case shows a much wider separation between the three algorithms. The runtime growth of A* and Greedy are very similar as expected of informed search algorithms, but Greedy tends to expand fewer nodes. UCS maintains its high trendline slope as with the previous cases, still showing bad scalability in runtime as the nodes it needs to expand increases.</p>
           </section>
 
           <section>

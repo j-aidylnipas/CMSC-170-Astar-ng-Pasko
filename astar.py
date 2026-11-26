@@ -124,10 +124,13 @@ def print_results(result, metadata):
         print(f"Runtime: {result['runtime']:.6f} seconds")
         print("\nPath Sequence:")
         # each brgy in the path
+        centroids = []
         for i, node_id in enumerate(result["path"]):
             name = metadata[node_id]["name"]
             mun = metadata[node_id]["city/municipality"]
-            print(f"  {i + 1}. {name}, {mun} ({node_id})")
+            print(f"  {i + 1}. {name}, {mun} ({node_id}) {metadata[node_id]['centroid']}")
+            centroids.append(metadata[node_id]["centroid"])
+        print(centroids)
     else:
         print("=== NO PATH FOUND ===")
         print("The destination is unreachable via shared boundaries.")

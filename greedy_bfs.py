@@ -119,10 +119,14 @@ if __name__ == "__main__": # load data from .json files
         print(f"Total Nodes Expanded: {result['nodes_expanded']}")
         print(f"Runtime: {result['runtime']:.6f} seconds")
         print("\nPath Sequence:")
+        
+        centroids = []
         for i, node_id in enumerate(result['path']):
             name = metadata[node_id]['name']
             mun = metadata[node_id]['city/municipality']
             print(f"  {i+1}. {name}, {mun} ({node_id})")
+            centroids.append(metadata[node_id]["centroid"])
+        print(centroids)
     else:
         print("=== NO PATH FOUND ===")
         print(f"The destination is unreachable via shared boundaries.")
