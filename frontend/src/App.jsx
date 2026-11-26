@@ -1,8 +1,12 @@
 import 'katex/dist/katex.min.css';
 import { InlineMath, BlockMath } from 'react-katex';
-import average_nodes_expanded from './../../figures and graphs/Average_Nodes_Expanded.png';
-import average_runtime from './../../figures and graphs/Average_Runtime.png';
-import scatterplot_runtime_nodesexpanded from './../../figures and graphs/Scatterplot_Runtime_NodesExpanded.png';
+import average_best from './assets/figures/avg_best.png';
+import average_avg from './assets/figures/avg_avg.png';
+import average_worst from './assets/figures/avg_worst.png';
+import vis from './assets/figures/test_vis.png';
+import trend_best from './assets/figures/trend_best.png'
+import trend_avg from './assets/figures/trend_avg.png'
+import trend_worst from './assets/figures/trend_worst.png'
 import brgy_poly from './assets/figures/brgy_poly.png';
 import brgy_md from './assets/figures/brgy_md.png'
 import brgy_adj from './assets/figures/brgy_adj.png';
@@ -128,11 +132,11 @@ function App() {
           <section id="experimental-setup">
             <h2>Experimental Setup</h2>
             <h3>Test Cases</h3>
-            <p>15 different pairs of start barangays and end barangays, consisting of barangays and barangay pairs of different characteristics such as MultiPolygon endpoints, long- and short-distance paths, and from different parts of the country, will be used as the test cases.</p>
+            <p>45 different pairs of start barangays and end barangays were picked as test cases for the experiment. These 45 pairs are divided into Best Case, Average Case, and Worst Case test case groups, consisting of 15 cases each. Best Case test cases consist of short, near-distance pairs (node-wise), Average Case test cases consist of medium distance pairs while Worst Case test cases consist of long-distance pairs.</p>
 
             <div className="table-wrap">
               <table>
-                <caption>Table 1. Test Cases</caption>
+                <caption>Table 1. Best Case Test Cases</caption>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -141,21 +145,81 @@ function App() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>1</td><td>Camalaggoan/D Leano, Claveria (PH0201511032)</td><td>Mambajog, Matnog (PH0506212026)</td></tr>
-                  <tr><td>2</td><td>Batong Malake, Los Banos (PH0403411004)</td><td>Forbes Park, City of Makati (PH1380300008)</td></tr>
-                  <tr><td>3</td><td>Balaoi, Pagudpud (PH0102815004)</td><td>Bon-Ot Big, Matnog (PH0804801003)</td></tr>
-                  <tr><td>4</td><td>Balongbalong, Pintuyan (PH0806411002)</td><td>Cabacungan, Allen (PH0804801003)</td></tr>
-                  <tr><td>5</td><td>Mintal, Davao City (PH1130700079)</td><td>Agdao, Davao City (PH1130700002)</td></tr>
-                  <tr><td>6</td><td>Lazareto, City of Calapan (Capital) (PH1705205029)</td><td>Arangin, Naujan (PH1705208004)</td></tr>
-                  <tr><td>7</td><td>Puring, Bataraza (PH1705305012)</td><td>Banbanan, Taytay (PH1705320002)</td></tr>
-                  <tr><td>8</td><td>Cabantian, Davao City (PH1130700023)</td><td>Ilang, Davao City (PH1130700049)</td></tr>
-                  <tr><td>9</td><td>Bitin, Bay (PH0403402001)</td><td>San Agustin, Bay (PH0403402016)</td></tr>
-                  <tr><td>10</td><td>Barangay 101, Caloocan City (PH1380100101)</td><td>Gen. T. De Leon, City of Valenzuela (PH1381600011)</td></tr>
-                  <tr><td>11</td><td>Maamot, San Jose (PH0306918007)</td><td>Dissimungal, Nagtipunan (PH0205706003)</td></tr>
-                  <tr><td>12</td><td>Trangka, Maasin (PH0603029051)</td><td>Casanayan, Pilar (PH0601911004)</td></tr>
-                  <tr><td>13</td><td>Calero, City of Calapan (Capital) (PH1705205013)</td><td>Pasi I, Socorro (PH1705214018)</td></tr>
-                  <tr><td>14</td><td>Patuco, Sarangani (PH1108605005)</td><td>Laker, Sarangani (PH1108605006)</td></tr>
-                  <tr><td>15</td><td>Rio Del Pilar, Glan (PH1208002024)</td><td>Glan Padidu, Glan (PH1208002013)</td></tr>
+                  <tr><td>1</td><td>Umiray, General Nakar (PH0405617019)</td><td>San Marcelino, General Nakar (PH0405617018)</td></tr>
+                  <tr><td>2</td><td>Duhatan, Balayan (PH0401003026)</td><td>Balitoc, Calatagan (PH0401008004)</td></tr>
+                  <tr><td>3</td><td>Bunawan, Davao City (PH1130700022)</td><td>Cabantian, Davao City (PH1130700023)</td></tr>
+                  <tr><td>4</td><td>Madaum, City of Tagum (Capital) (PH1102319009)</td><td>La Filipina, City of Tagum (Capital) (PH1102319007)</td></tr>
+                  <tr><td>5</td><td>Opong, Tagana-an (PH1606725010)</td><td>Mabini, Surigao City (Capital) (PH1606724027)</td></tr>
+                  <tr><td>6</td><td>San Fernando, Del Carmen (PH1606708021)</td><td>San Miguel, San Isidro (PH1606720009)</td></tr>
+                  <tr><td>7</td><td>San Andres, City of Borongan (Capital) (PH0802604046)</td><td>Binobucalan, Hinabangan (PH0806008002)</td></tr>
+                  <tr><td>8</td><td>Calumpang, Milagros (PH0504112006)</td><td>Matiporon, Milagros (PH0504112014)</td></tr>
+                  <tr><td>9</td><td>Boca Engano, Claveria (PH0504107002)</td><td>Nonoc, Claveria (PH0504107013)</td></tr>
+                  <tr><td>10</td><td>Tandang Sora, Quezon City (PH1381300120)</td><td>Greater Lagro, Quezon City (PH1381300141)</td></tr>
+                  <tr><td>11</td><td>Lurad, Diadi (PH0205006014)</td><td>Pudi, Kasibu (PH0205009020)</td></tr>
+                  <tr><td>12</td><td>Uacon, Candelaria (PH0307103018)</td><td>Santa Rita, Masinloc (PH0307106009)</td></tr>
+                  <tr><td>13</td><td>Cruz, Victoria (PH0306917011)</td><td>Cavite, Guimba (PH0304911022)</td></tr>
+                  <tr><td>14</td><td>San Remigio, Island Garden City of Samal (PH1102317036)</td><td>Balet, Island Garden City of Samal (PH1102317005)</td></tr>
+                  <tr><td>15</td><td>Cabantian, Davao City (PH1130700023)</td><td>Ilang, Davao City (PH1130700049)</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="table-wrap">
+              <table>
+                <caption>Table 2. Average Case Test Cases</caption>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Start</th>
+                    <th>Goal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>Tugbok, Davao City (PH1130700127)</td><td>Kasapa, Loreto (PH1600305013)</td></tr>
+                  <tr><td>2</td><td>Dampalan, Pagadian City (Capital) (PH0907322056)</td><td>Maganding, Picong (Sultan Gumander) (PH1903635028)</td></tr>
+                  <tr><td>3</td><td>Batong Malake, Los Banos (PH0403411004)</td><td>Western Bicutan, Taguig City (PH1381500018)</td></tr>
+                  <tr><td>4</td><td>Nasalaan, San Francisco (Aurora) (PH0405642010)</td><td>Santa Catalina, Atimonan (PH0405603036)</td></tr>
+                  <tr><td>5</td><td>Gueset, Bugallon (PH0105515009)</td><td>Inmalog, Sison (PH0105541028)</td></tr>
+                  <tr><td>6</td><td>Pongon, Macarthur (PH0803730020)</td><td>Tinambacan, Jaro (PH0803723038)</td></tr>
+                  <tr><td>7</td><td>Maybunga, Balangiga (PH0802602013)</td><td>Geparayan De Turag, Silvino Lobos (PH0804822015)</td></tr>
+                  <tr><td>8</td><td>Igdagmay, San Joaquin (PH0603040040)</td><td>Jaena Sur, Jamindan (PH0601906014)</td></tr>
+                  <tr><td>9</td><td>Canipaan, Rizal (Marcos) (PH1705323004)</td><td>Simpocan, Puerto Princesa City (Capital) (PH1731500056)</td></tr>
+                  <tr><td>10</td><td>La Paz, City of Makati (PH1380300012)</td><td>Canlubang, City of Calamba (PH0403405011)</td></tr>
+                  <tr><td>11</td><td>Campo, South Upi (PH1908817001)</td><td>Laconon, T'Boli (PH1206316005)</td></tr>
+                  <tr><td>12</td><td>Lepanto, Alegria (PH0702203004)</td><td>Lamac, Pinamungajan (PH0702237011)</td></tr>
+                  <tr><td>13</td><td>Santo Nino, Talaingod (PH1102322003)</td><td>Lirongan, Talakag (PH1001320015)</td></tr>
+                  <tr><td>14</td><td>Pasonanca, Zamboanga City (PH0931700059)</td><td>Miampic, Godod (PH0907225010)</td></tr>
+                  <tr><td>15</td><td>Osiao, City of Sorsogon (Capital) (PH0506216050)</td><td>Panganiran, Pio Duran (PH0500513022)</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="table-wrap">
+              <table>
+                <caption>Table 3. Worst Case Test Cases</caption>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Start</th>
+                    <th>Goal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td>Cagsiay III, Mauban (PH0405627010)</td><td>Del Carmen, Lagonoy (PH0501717010)</td></tr>
+                  <tr><td>2</td><td>Patunungan, Santa Ana (PH0201523010)</td><td>Dalupirip, Itogon (PH1401106002)</td></tr>
+                  <tr><td>3</td><td>Ditago, Sultan Naga Dimaporo (Karomatan) (PH1003506013)</td><td>Talomo, Davao City (PH1130700116)</td></tr>
+                  <tr><td>4</td><td>Mat-i, Surigao City (Capital) (PH1606724031)</td><td>Colosas, Davao City (PH1130700034)</td></tr>
+                  <tr><td>5</td><td>Nahaong, Libagon (PH0806405008)</td><td>Camonoan, Matuguinao (PH0806011005)</td></tr>
+                  <tr><td>6</td><td>Inlagadian, Casiguran (PH0506205011)</td><td>Pansol, City of Calamba (PH0403405036)</td></tr>
+                  <tr><td>7</td><td>Diteki, San Luis (PH0307708011)</td><td>Santa Clara, Santa Ana (PH0201523013)</td></tr>
+                  <tr><td>8</td><td>Sangay, Kalamansig (PH1206505016)</td><td>Cabugo, Bayabas (PH1606802003)</td></tr>
+                  <tr><td>9</td><td>Camalaggoan/D Leano, Claveria (PH0201511032)</td><td>Mambajog, Matnog (PH0506212026)</td></tr>
+                  <tr><td>10</td><td>Malabuhan, Siaton (PH0704619013)</td><td>Sicaba, Cadiz City (PH0604504021)</td></tr>
+                  <tr><td>11</td><td>Igdagmay, San Joaquin (PH0603040040)</td><td>Pangi, San Dionisio (PH0603038019)</td></tr>
+                  <tr><td>12</td><td>Piaz, Villasis (PH0105547011)</td><td>Sapang I, Ternate (PH0402121008)</td></tr>
+                  <tr><td>13</td><td>Runruno, Quezon (PH0205011010)</td><td>Huyon-Uyon, San Francisco (Aurora) (PH0405642006)</td></tr>
+                  <tr><td>14</td><td>Mintal, Davao City (PH1130700079)</td><td>Dahilig, Balingoan (PH1004303002)</td></tr>
+                  <tr><td>15</td><td>Macambol, City of Mati (Capital) (PH1102509018)</td><td>Penaranda, Kabasalan (PH0908306019)</td></tr>
                 </tbody>
               </table>
             </div>
@@ -170,7 +234,7 @@ function App() {
             <p>To measure the optimality of an algorithm, we get the <strong>optimality rate</strong> and the <strong>percent optimality</strong> of the algorithm. The optimality rate of an algorithm is the measure of how often the algorithm gets the optimal solution, calculated as:</p>
             <BlockMath math="Rate_{\text{Optimality}} = \frac{Paths_{\text{Optimal}}}{TotalCases} \times 100\%" />
             <p>The percent optimality of an algorithm is the measure of how far an algorithm's solution is to the optimal solution, calculated as:</p>
-            <BlockMath math="\text{Percent}_{\text{Optimality}} = \left( 1 - \left| \frac{\text{Cost}_{\text{Solution}} - \text{Cost}_{\text{Optimal}}}{\text{Cost}_{\text{Optimal}}} \right| \right) \times 100\%" />
+            <BlockMath math="\text{Percent}_{\text{Optimality}} = 1 +\left(\frac{\text{Cost}_{\text{Solution}} - \text{Cost}_{\text{Optimal}}}{\text{Cost}_{\text{Optimal}}} \right) \times 100\%" />
             <p>We will get the average percent optimality of all runs/test cases.</p>
             <p>Because Uniform Cost Search solutions always guarantee optimal solutions, any calculation involving values of an optimal solution will use results from Uniform Cost Search runs.</p>
           </section>
@@ -178,9 +242,13 @@ function App() {
           {/* Results */}
           <section id="results">
             <h2>Results and Discussion</h2>
+            <figure className="figure">
+              <img src={vis} alt="Test" />
+              <figcaption>Figure 7. Sample Path from an Average Test Case Batong Malake (PH0403411004) to Western Bicutan (PH1381500018) (Green: GBFS, Pink: Optimal/UCS)</figcaption>
+            </figure>
             <div className="table-wrap">
               <table>
-                <caption>Table 2. Average Results</caption>
+                <caption>Table 4. Best Case Results</caption>
                 <thead>
                   <tr>
                     <th scope="col"></th>
@@ -194,25 +262,105 @@ function App() {
                     <th scope="row">Optimality Rate</th>
                     <td>100.00%</td>
                     <td>100.00%</td>
-                    <td>20.00%</td>
+                    <td>53.33%</td>
                   </tr>
                   <tr>
                     <th scope="row">Percent Optimality</th>
                     <td>100.00%</td>
                     <td>100.00%</td>
-                    <td>87.24%</td>
+                    <td>104.25%</td>
                   </tr>
                   <tr>
                     <th scope="row">Number of Nodes Expanded</th>
-                    <td>3603.33</td>
-                    <td>2422.73</td>
-                    <td>109.13</td>
+                    <td>73.60</td>
+                    <td>7.20</td>
+                    <td>5.93</td>
                   </tr>
                   <tr>
                     <th scope="row">Runtime (seconds)</th>
-                    <td>0.969013</td>
-                    <td>0.008477</td>
-                    <td>0.0004488</td>
+                    <td>0.000341</td>
+                    <td>0.000048</td>
+                    <td>0.000022</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="table-wrap">
+              <table>
+                <caption>Table 5. Average Results</caption>
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Uniform Cost Search</th>
+                    <th scope="col">A* Search</th>
+                    <th scope="col">Greedy Best-First Search</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Optimality Rate</th>
+                    <td>100.00%</td>
+                    <td>100.00%</td>
+                    <td>0.00%</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Percent Optimality</th>
+                    <td>100.00%</td>
+                    <td>100.00%</td>
+                    <td>110.22%</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Number of Nodes Expanded</th>
+                    <td>1365.00</td>
+                    <td>183.87</td>
+                    <td>30.07</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Runtime (seconds)</th>
+                    <td>0.040964</td>
+                    <td>0.000594</td>
+                    <td>0.000089</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="table-wrap">
+              <table>
+                <caption>Table 6. Worst Case Results</caption>
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Uniform Cost Search</th>
+                    <th scope="col">A* Search</th>
+                    <th scope="col">Greedy Best-First Search</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Optimality Rate</th>
+                    <td>100.00%</td>
+                    <td>100.00%</td>
+                    <td>0.00%</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Percent Optimality</th>
+                    <td>100.00%</td>
+                    <td>100.00%</td>
+                    <td>118.08%</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Number of Nodes Expanded</th>
+                    <td>7797.40</td>
+                    <td>2696.40</td>
+                    <td>154.53</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Runtime (seconds)</th>
+                    <td>1.670105</td>
+                    <td>0.008008</td>
+                    <td>0.000518</td>
                   </tr>
                 </tbody>
               </table>
@@ -221,20 +369,30 @@ function App() {
 
             {/* Figures and Graphs */}
             <figure className="figure">
-              <img src={average_nodes_expanded} alt="Bar graph comparing average nodes expanded across algorithms" />
-              <figcaption>Figure 6. Bar Graph for Average Number of Nodes Expanded</figcaption>
+              <img src={average_best} alt="Bar graph comparing average runtime in seconds across algorithms" />
+              <figcaption>Figure 7. Best Case Bar Graph for Average Runtime and Nodes Expanded</figcaption>
             </figure>
-            <p>The results show that Uniform Cost Search accounts for the largest average number of expanded nodes (3,603.33), followed by A* Search (2,422.73), while Greedy Best-First Search expands only a small fraction (109.13). This indicates that Uniform Cost Search explores a substantially broader portion of the barangay graph than heuristic-guided search.</p>
-
             <figure className="figure">
-              <img src={average_runtime} alt="Bar graph comparing average runtime in seconds across algorithms" />
-              <figcaption>Figure 7. Bar Graph for Average Runtime</figcaption>
+              <img src={average_avg} alt="Bar graph comparing average runtime in seconds across algorithms" />
+              <figcaption>Figure 8. Average Case Bar Graph for Average Runtime and Nodes Expanded</figcaption>
+            </figure>
+            <figure className="figure">
+              <img src={average_worst} alt="Worst Case Bar Graph for Average Runtime and Nodes Expanded" />
+              <figcaption>Figure 9. Worst Case Bar Graph for Average Runtime and Nodes Expanded</figcaption>
             </figure>
             <p>The results show that Uniform Cost Search has the largest average runtime (0.969013 s), followed by A* Search (0.008477 s), while Greedy Best-First Search has the lowest average runtime (0.0004488 s). Guiding search with the Haversine heuristic dramatically reduces execution time compared to uninformed cost expansion.</p>
 
             <figure className="figure">
-              <img src={scatterplot_runtime_nodesexpanded} alt="Scatterplot comparing runtime against nodes expanded" />
-              <figcaption>Figure 8. Runtime vs. Nodes Expanded</figcaption>
+              <img src={trend_best} alt="Scatterplot comparing runtime against nodes expanded" />
+              <figcaption>Figure 8. Best Case Runtime vs. Nodes Expanded</figcaption>
+            </figure>
+            <figure className="figure">
+              <img src={trend_avg} alt="Scatterplot comparing runtime against nodes expanded" />
+              <figcaption>Figure 8. Average Case Runtime vs. Nodes Expanded</figcaption>
+            </figure>
+            <figure className="figure">
+              <img src={trend_worst} alt="Scatterplot comparing runtime against nodes expanded" />
+              <figcaption>Figure 8. Worst Case Runtime vs. Nodes Expanded</figcaption>
             </figure>
             <p>The results show that across all three algorithms, runtime is negligible when the number of nodes expanded is small. As the number of expanded nodes increases, Uniform Cost Search incurs much higher runtime than A* Search, indicating that A* handles wider spatial searches more efficiently than UCS. Greedy Best-First Search consistently expands the fewest nodes and runs fastest, whereas Uniform Cost Search expands the most nodes.</p>
           </section>
