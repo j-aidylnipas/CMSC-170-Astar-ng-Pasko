@@ -244,7 +244,7 @@ function App() {
             <h2>Results and Discussion</h2>
             <figure className="figure">
               <img src={vis} alt="Test" />
-              <figcaption>Figure 7. Sample Path from an Average Test Case Batong Malake (PH0403411004) to Western Bicutan (PH1381500018) (Green: GBFS, Pink: Optimal/UCS)</figcaption>
+              <figcaption>Figure 6. Sample Path from an Average Test Case Batong Malake (PH0403411004) to Western Bicutan (PH1381500018) (Green: GBFS, Pink: Optimal/UCS)</figcaption>
             </figure>
             <div className="table-wrap">
               <table>
@@ -382,32 +382,33 @@ function App() {
               <img src={average_worst} alt="Worst Case Bar Graph for Average Runtime and Nodes Expanded" />
               <figcaption>Figure 9. Worst Case Bar Graph for Average Runtime and Nodes Expanded</figcaption>
             </figure>
+            <p>The graph shows that in the worst case scenario, the UCS Algorithm yielded the highest in nodes expanded and had the longest runtime, followed by the A* Search and then GBFS in both run time and nodes expanded. Since A* Search has a faster run time than UCS, we can conclude that A* Search Algorithm is more efficient for the worst case scenario.</p>
       
 
             <figure className="figure">
               <img src={trend_best} alt="Scatterplot comparing runtime against nodes expanded" />
-              <figcaption>Figure 8. Best Case Runtime vs. Nodes Expanded</figcaption>
+              <figcaption>Figure 10. Best Case Runtime vs. Nodes Expanded</figcaption>
             </figure>
             <p>The scatterplot and trendline shows that at very small node counts, all three algorithms roughly share the same nodes expanded and runtime. As nodes expanded increase, runtime also increases. UCS has a steeper trendline compared to A* and Greedy, which means that it costs more runtime to process each node. Points for A* and Greedy are also not very consistent with the trendline, so the performance results may vary at very short distances. On the other hand, UCS generally follows the trendline, so its performance is predictable.</p>
             <figure className="figure">
               <img src={trend_avg} alt="Scatterplot comparing runtime against nodes expanded" />
-              <figcaption>Figure 8. Average Case Runtime vs. Nodes Expanded</figcaption>
+              <figcaption>Figure 11. Average Case Runtime vs. Nodes Expanded</figcaption>
             </figure>
             <p>The scatterplot and trendline still shows the high runtime cost per node of UCS, albeit much steeper than at the worst case. A* search's trendline is much flatter which means the runtime grows slowly per node expanded. It is also observed that the trendline converges at around 100 nodes and starts diverging once the node count goes higher.</p>
             <figure className="figure">
               <img src={trend_worst} alt="Scatterplot comparing runtime against nodes expanded" />
-              <figcaption>Figure 8. Worst Case Runtime vs. Nodes Expanded</figcaption>
+              <figcaption>Figure 12. Worst Case Runtime vs. Nodes Expanded</figcaption>
             </figure>
             <p>The scatterplot and trendline for Worst Case shows a much wider separation between the three algorithms. The runtime growth of A* and Greedy are very similar as expected of informed search algorithms, but Greedy tends to expand fewer nodes. UCS maintains its high trendline slope as with the previous cases, still showing bad scalability in runtime as the nodes it needs to expand increases.</p>
           </section>
 
           <section>
             <h3>Findings</h3>
-            <p>Uniform Cost Search achieved 100% optimality rate, which means that it consistently found optimal solutions across all 15 test cases. However, in terms of average runtime, the algorithm is the slowest despite having an average of 3603.335 nodes expanded. This indicates that Uniform Cost Search algorithm guarantees optimal solutions though would take the longest in terms of runtime.</p>
+            <p>Uniform Cost Search achieved 100% optimality rate, which means that it consistently found optimal solutions across all cases. At the Best Case, its runtime was negligible although it has a significant amount of nodes expanded compared to the other algorithms. At Worst Case, its inefficiency is much more exacerbated, having poor scalability in terms of runtime vs nodes expanded.</p>
             
-            <p>A* Search achieved 100% optimality rate, which means that it also consistently found optimal solutions across all 15 test cases, while expanding an average of 2422.733 nodes. A* Search achieved an average runtime of 0.008477 seconds. Compared to Uniform Cost Search, the algorithm reduced the average number of expanded nodes and achieved substantially faster execution. This indicates that A* Search demonstrates the effectiveness of heuristic in guiding the search toward the goal while maintaining optimality.</p>
+            <p>A* Search achieved 100% optimality rate, which means that it also consistently found optimal solutions across all cases. Compared to Uniform Cost Search, the algorithm reduced the average number of expanded nodes, as well as spent less runtime per node, and achieved substantially faster execution. This indicates that A* Search demonstrates the effectiveness of heuristic in guiding the search toward the goal while maintaining optimality.</p>
 
-            <p>Greedy Best-First Search achieved the lowest average number of expanded nodes of 109.134 and the fastest average runtime at 0.0004488 seconds. However, it recorded a 20% optimality rate, indicating that a small part of its solutions across the 15 test cases were optimal. The solutions that the algorithm finds are, on average, +-87.24% from the optimal solution. The algorithm is expected to be the fastest because it prioritizes nodes based only on their estimated distance to the goal rather than considering the total path cost. </p>
+            <p>Greedy Best-First Search achieved the lowest average number of expanded nodes and the fastest average runtime for all cases. However, it recorded poor optimality rates across all 3 cases, with its best being at the Best Case with 53.33% optimality rate, while achieveing no optimal solutions at its Average and Worst Case. At worst, the solutions that Greedy finds is 18.08% higher than the optimal solution. The algorithm is expected to be the fastest because it prioritizes nodes based only on their estimated distance to the goal rather than considering the total path cost.</p>
           </section>
 
           <section>
@@ -418,9 +419,9 @@ function App() {
           {/* Conclusion */}
           <section id="conclusion">
             <h2>Conclusion</h2>
-            <p>Across the 15 test cases, the three algorithms showed different tradeoffs in efficiency and optimality.</p>
-            <p>Uniform Cost Search and A* search were able to get a 100% optimality rate and always got the optimal path. However, A* search's usage of a heuristic made it much more efficient at handling larger distance paths than Uniform Cost Search who only relied on the actual path cost and blindly explores the graph.</p>
-            <p>Greedy Best-First Search was the fastest algorithm of the three, as it greedily explores a single path straight toward the goal. Because of this, it does not try to expand sidewards and so does not guarantee an optimal solution. For the dataset, it only gets the optimal path 20% of the time, and of its solutions, only gets an average of 87.24% away from the optimal path.</p>
+            <p>Across the 3 cases with 15 paths each, the three algorithms showed different tradeoffs in efficiency and optimality.</p>
+            <p>Uniform Cost Search and A* search were able to get a 100% optimality rate and always got the optimal path in all cases. However, A* search's usage of a heuristic made it much more efficient at handling worst case paths than Uniform Cost Search who only relied on the actual path cost and blindly explores the graph.</p>
+            <p>Greedy Best-First Search was the fastest algorithm of the three, as it greedily explores a single path straight toward the goal. Because of this, it does not try to expand sidewards and so does not guarantee an optimal solution. Even at Best Case, it was only able to get the optimal paths for roughly half the dataset. Its speed is much more clear going into Worst Case, so this algorithm is best into longer distances if optimality is not an issue.</p>
           </section>
 
           {/* References */}
